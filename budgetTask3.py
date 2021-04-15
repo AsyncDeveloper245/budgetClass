@@ -19,16 +19,20 @@ class Budget:
     """
 
     def __init__(self, food, clothing, entertainment):
-        if food:
-            self.food = dict()
-            self.food['balance'] = 0
-        if clothing:
-            self.clothing = dict()
-            self.clothing['balance'] = 0
+        try:
+            if food:
+                self.food = dict()
+                self.food['balance'] = 0
+            if clothing:
+                self.clothing = dict()
+                self.clothing['balance'] = 0
 
-        if entertainment:
-            self.entertainment = dict()
-            self.entertainment['balance'] = 0
+            if entertainment:
+                self.entertainment = dict()
+                self.entertainment['balance'] = 0
+
+        except BudgetException:
+            print('invalid Input')
 
     def compute_balance(self, category):
         category = category.title()
@@ -124,14 +128,19 @@ class Budget:
         return f"Budget class Food-> {self.food} - Clothing-> {self.clothing} - Entertainment-> {self.entertainment}"
 
 
-newbudget = Budget('food', 'clothing', 'entertainment')
 
-newbudget.deposit('food', 30000)
+try:
+    newbudget = Budget('food', 'clothing', 'entertainment')
+    newbudget.deposit('food', 30000)
 
-print(newbudget.compute_balance('food'))
-newbudget.transfer('food', 'clothing', 5000)
-newbudget.transfer('food', 'entertainment', 700000)
-print(newbudget.compute_balance('clothing'))
-print(newbudget)
-newbudget.withdraw('entertainment', 1250)
-print(newbudget)
+    print(newbudget.compute_balance('food'))
+    newbudget.transfer('food', 'clothing', 5000)
+    newbudget.transfer('food', 'entertainment', 700000)
+    print(newbudget.compute_balance('clothing'))
+    print(newbudget)
+    newbudget.withdraw('entertainment', 1250)
+    print(newbudget)
+
+except TypeError:
+    print('Wrong Input')
+
